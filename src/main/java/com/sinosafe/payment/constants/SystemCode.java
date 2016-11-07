@@ -7,7 +7,7 @@ public enum SystemCode {
 
 
     // 利用构造函数传参
-    B2C("B2C"), YDZY("YDZY"), WEIXIN("WEIXIN"),FUIOU("FUIOU"),SINOSAFE("com/sinosafe");
+    B2C("B2C"), YDZY("YDZY"), WEIXIN("WEIXIN"),FUIOU("FUIOU"),SINOSAFE("com/sinosafe"),SHORT_SINOSAFE("sinosafe");
 
     // 定义私有变量
     private String code;

@@ -1,0 +1,25 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sinosafe.payment.dao.mapper.common.LogMapper">
+
+
+
+
+
+    <insert id="saveExceptionLog">
+        INSERT INTO exception_log (ID,METHOD_NAME,DESCRIPTION,STACKTRACE) VALUES (pk_seq.nextval,#{method},#{description},#{stackTrace})
+    </insert>
+
+    <insert id="saveRequestLog">
+        INSERT INTO INTERFACE_LOG(ID,SYSTEM_CODE,INTERFACE_CODE,ORDER_NO,REQUEST_PARAMS) values(#{logId,jdbcType=INTEGER}, #{systemCode}, #{interfaceCode}, #{orderNo}, #{inParam})
+    </insert>
+
+
+    <insert id="updateResponseLog">
+        update interface_log
+        set SYSTEM_CODE=#{systemCode},INTERFACE_CODE=#{interfaceCode},ORDER_NO=#{orderNo},RESPONSE_PARAMS = #{outParam}
+        where  ID=#{logId,jdbcType=INTEGER}
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,230 @@
+import java.text.SimpleDateFormat
+
+//import java.text.SimpleDateFormat
+
+group 'com.sinosafe'
+version '1.0-SNAPSHOT'
+
+
+buildscript {
+    ext{
+        springbootVersion="1.4.0.RELEASE"
+        springCloudVersion="1.1.3.RELEASE"
+    }
+    repositories {
+
+        mavenLocal()
+
+        maven {
+            url 'http://10.1.109.158:8081/nexus/content/groups/public/'
+            artifactUrls 'http://10.1.109.158:8081/nexus/content/repositories/thirdparty/'
+            artifactUrls 'http://10.1.109.158:8081/nexus/content/repositories/Newmix-Releases/'
+            artifactUrls 'http://10.1.109.158:8081/nexus/content/repositories/Newmix-Snapshots/'
+        }
+
+        mavenCentral()
+
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springbootVersion"
+        classpath 'org.springframework:springloaded:1.2.4.RELEASE'
+//        classpath "org.apache.maven.wagon:wagon-ssh:1.0-beta-7"
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+apply plugin: 'application'
+
+
+def env = System.getProperty("env") ?: "prod"
+
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources","src/main/profile/$env"]
+        }
+    }
+}
+
+def date = new SimpleDateFormat("yyyy-MM-dd").format(new Date())
+jar {
+    baseName = "payment-$env"
+    version = '1.0-RELEASE'
+
+}
+war {
+    baseName = "payment-$env"
+    version = '1.0-RELEASE'
+}
+
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url 'http://10.1.109.158:8081/nexus/content/groups/public/'
+        artifactUrls 'http://10.1.109.158:8081/nexus/content/repositories/thirdparty/'
+        artifactUrls 'http://10.1.109.158:8081/nexus/content/repositories/Newmix-Releases/'
+        artifactUrls 'http://10.1.109.158:8081/nexus/content/repositories/Newmix-Snapshots/'
+    }
+
+
+
+}
+
+distZip {
+    archiveName "$baseName-$version-$date-RELEASE.zip"
+}
+
+
+dependencies {
+
+    compile 'com.alibaba:druid:1.0.14'
+    compile 'com.alibaba:fastjson:1.2.7'
+    compile 'org.mybatis:mybatis:3.2.8'
+    compile 'org.mybatis:mybatis-spring:1.2.2'
+//    compile 'mysql:mysql-connector-java:5.1.35'
+    compile  'com.oracle:ojdbc6:11.2.0.3.0'
+
+
+
+
+    compile ('com.101tec:zkclient:0.7'){
+        exclude group: 'org.slf4j'
+    }
+
+
+    compile ('com.alibaba:dubbo:2.8.3') {
+        exclude group: 'org.springframework', module: 'spring'
+    }
+
+    compile 'redis.clients:jedis:2.6.2'
+
+    compile "org.springframework.boot:spring-boot-starter-jdbc:$springbootVersion"
+    compile "org.springframework.boot:spring-boot-starter-amqp:$springbootVersion"
+    // compile 'org.springframework.boot:spring-boot-starter-data-jpa:$springbootVersion'
+//    compile "org.springframework.security:spring-security-config:3.2.7.RELEASE"
+    compile 'org.springframework.boot:spring-boot-starter-redis'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+//    compile 'org.springframework.boot:spring-boot-devtools'
+    compile 'org.springframework.session:spring-session-data-redis:1.0.1.RELEASE'
+    compile 'org.springframework.session:spring-session:1.0.1.RELEASE'
+
+
+    compile ("org.springframework.boot:spring-boot-starter-web:$springbootVersion") {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+
+    compile ("org.springframework.boot:spring-boot-starter-jetty:$springbootVersion") {
+        exclude group: 'org.eclipse.jetty.websocket'
+    }
+
+    compile 'com.google.guava:guava:18.0'
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile 'commons-io:commons-io:2.5'
+    compile 'javassist:javassist:3.12.1.GA'
+    compile 'org.apache.httpcomponents:httpclient:4.4.1'
+    compile 'org.apache.httpcomponents:httpasyncclient:4.1'
+
+
+
+    //cas client
+    compile  'org.jasig.cas.client:cas-client-core:3.4.1'
+
+    //pdf
+    compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
+    //水印
+    compile 'net.coobird:thumbnailator:0.4.8'
+
+    //httpclient
+    compile group: 'org.dom4j', name: 'dom4j', version: '2.0.0'
+    //dom4J
+    compile group: 'org.lucee', name: 'commons-httpclient', version: '3.1.0'
+    compile group: 'org.apache.axis', name: 'axis', version: '1.4'
+    compile group: 'org.apache.axis', name: 'axis-jaxrpc', version: '1.4'
+
+
+    //swagger
+    compile 'io.springfox:springfox-swagger-ui:2.2.2'
+    compile 'io.springfox:springfox-swagger2:2.2.2'
+
+    //freemarker
+//    compile "org.springframework.boot:spring-boot-starter-freemarker:$springbootVersion"
+
+
+    // QRCODE
+    compile 'com.swetake:qrcode:201408071235'
+    //health check
+//    compile("org.springframework.boot:spring-boot-starter-actuator")
+
+//    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+
+
+
+}
+
+def remoteHost="10.2.108.33"
+def remotePath="app/jboss/war"
+def remoteUser="jboss"
+def remtoePasswd="payment2016"
+// Some task to collect what is to be uploaded into one place
+//task generateSite(type: Sync) {
+//    from "./build/distributions/payment-1.0-SNAPSHOT-2016-10-19-RELEASE.zip"
+//    into "$buildDir/site"
+//}
+//
+//// Use the wagon to upload the content
+//task uploadSite(dependsOn: generateSite) << {
+//    def rep = new org.apache.maven.wagon.repository.Repository("site", "scp://$remoteHost/$remotePath")
+//    def auth = new org.apache.maven.wagon.authentication.AuthenticationInfo()
+//    auth.userName = "$remoteUser"
+//    auth.password = "$remtoePasswd"
+//    def wagon = new org.apache.maven.wagon.providers.ssh.jsch.ScpWagon()
+//    wagon.connect(rep, auth)
+//
+//    generateSite.destinationDir.eachFile {
+//        if (it.directory) {
+//            wagon.putDirectory(it, it.name)
+//        } else {
+//            wagon.put(it, it.name)
+//        }
+//    }
+//}
+
+
+
+springBoot {
+    mainClass = "com.sinosafe.payment.BaseApplication"
+}
+
+
+
+/*
+uploadArchives {
+
+    repositories.mavenDeployer {
+
+        repository(url: 'http://10.1.109.158:8081/nexus/content/repositories/Newmix-Releases') {
+            authentication(userName: 'admin', password: 'admin123')
+        }
+
+        snapshotRepository(url: 'http://10.1.109.158:8081/nexus/content/repositories/Newmix-Snapshots') {
+            authentication(userName: 'admin', password: 'admin123')
+        }
+
+        pom.version = '1.0-SNAPSHOT'
+        pom.groupId = 'com.angus'
+        pom.artifactId = 'base'
+        pom.packaging = 'jar'
+
+    }
+
+}*/

@@ -1,22 +1,30 @@
 package com.sinosafe.payment.config;
 
-/**
- * SwaggerConfig
- * Swagger2默认将所有的Controller中的RequestMapping方法都会暴露，然而在实际开发中，
- * 我们并不一定需要把所有API都提现在文档中查看，这种情况下，使用注解@ApiIgnore来解决，如果应用在Controller范围上，则当前Controller中的所有方法都会被忽略，
- * 如果应用在方法上，则对应用的方法忽略暴露API。
- */
-public class SwaggerConfig {
-/*//@Configuration
-//@EnableSwagger2
-//public class SwaggerConfig {
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.async.DeferredResult;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-    *//**
+/**
+* SwaggerConfig
+* Swagger2默认将所有的Controller中的RequestMapping方法都会暴露，然而在实际开发中，
+* 我们并不一定需要把所有API都提现在文档中查看，这种情况下，使用注解@ApiIgnore来解决，如果应用在Controller范围上，则当前Controller中的所有方法都会被忽略，
+* 如果应用在方法上，则对应用的方法忽略暴露API。
+*/
+
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+
+    /**
      * SpringBoot默认已经将classpath:/META-INF/resources/和classpath:/META-INF/resources/webjars/映射
      * 所以该方法不需要重写，如果在SpringMVC中，可能需要重写定义（我没有尝试）
      * 重写该方法需要 extends WebMvcConfigurerAdapter
-     * 
-     *//*
+     *
+     */
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 //        registry.addResourceHandler("swagger-ui.html")
@@ -26,11 +34,11 @@ public class SwaggerConfig {
 //                .addResourceLocations("classpath:/META-INF/resources/webjars/");
 //    }
 
-    *//**
+    /**
      * 可以定义多个组，比如本类中定义把test和demo区分开了
-     * （访问页面就可以看到效果了） 
+     * （访问页面就可以看到效果了）
      *
-     *//*
+     */
     @Bean
     public Docket testApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -47,9 +55,9 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket demoApi() {
+    public Docket prodApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("demo")
+                .groupName("prod")
                 .genericModelSubstitutes(DeferredResult.class)
 //              .genericModelSubstitutes(ResponseEntity.class)
                 .useDefaultResponseMessages(false)
@@ -58,12 +66,12 @@ public class SwaggerConfig {
                 .select()
               //  .paths(or(regex("/demo/.*")))//过滤的接口
                 .build()
-                .apiInfo(demoApiInfo());
+                .apiInfo(prodApiInfo());
     }
 
     private ApiInfo testApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("HAPoints Platform API",//大标题
-                "HAPoints Platform REST API, all the applications could access the Object model data via JSON.",//小标题
+        ApiInfo apiInfo = new ApiInfo("支付测试平台 API",//大标题
+                "支付平台 RESTFUL API, all the applications could access the Object model data via JSON.",//小标题
                 "0.1",//版本
                 "NO terms of service",
                 "zhuhuanmin@com.sinosafe.com.cn",//作者
@@ -74,16 +82,16 @@ public class SwaggerConfig {
         return apiInfo;
     }
 
-    private ApiInfo demoApiInfo() {
-        ApiInfo apiInfo = new ApiInfo("HAPoints Platform API",//大标题
+    private ApiInfo prodApiInfo() {
+        ApiInfo apiInfo = new ApiInfo("支付平台 API",//大标题
                 "HAPoints Platform REST API, all the applications could access the Object model data via JSON.",//小标题
                 "0.1",//版本
                 "NO terms of service",
                 "zhuhuanmin@com.sinosafe.com.cn",//作者
                 "The Apache License, Version 2.0",//链接显示文字
-                "http://www.apache.org/licenses/LICENSE-2.0.html"//网站链接
+                "http://www.sinosafe.com.cn"//网站链接
         );
 
         return apiInfo;
-    }*/
+    }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<req>
+    <login_id>${loginId}</login_id>
+    <firm_no>sinosafe</firm_no>
+    <user_ip>${userIp}</user_ip>
+    <serial_no>${serialNo}</serial_no>
+    <fy_ssn>${fySsn}</fy_ssn>
+    <bank_mobile>${bankMobile}</bank_mobile>
+    <vercd>${varcd}</vercd>
+    <bank_card_no>${bankCardNo}</bank_card_no>
+    <sign>${sign}</sign>
+</req>

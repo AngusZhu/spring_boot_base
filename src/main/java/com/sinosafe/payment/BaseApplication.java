@@ -2,7 +2,7 @@ package com.sinosafe.payment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ImportResource;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
 /**
@@ -15,14 +15,14 @@ import org.springframework.context.annotation.PropertySource;
  */
 @SpringBootApplication
 @PropertySource(value = {"classpath:/application.properties", "classpath:/datasource.properties"})
-@ImportResource({"classpath:dubbo-provider.xml"})
+//@ImportResource({"classpath:dubbo-provider.xml"})
+@ServletComponentScan
 public class BaseApplication {
 
     public static void main(String[] args) {
        /* SpringApplication app = new SpringApplication(BaseApplication.class);
         app.setShowBanner(false);
         app.run(args);*/
-
         SpringApplication.run(BaseApplication.class, args);
     }
 

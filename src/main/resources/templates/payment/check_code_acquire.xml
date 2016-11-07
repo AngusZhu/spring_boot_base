@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<req>
+    <login_id>${loginId}</login_id>
+    <firm_no>${firmNo}</firm_no>
+    <user_nm>${userNm}</user_nm>
+    <serial_no>${serialNo}</serial_no>
+    <req_dt>${reqDt}</req_dt>
+    <policy_no>${policyNo}</policy_no>
+    <policy_amt>${policyAmt}</policy_amt>
+    <policy_point_amt>${policyPointAmt}</policy_point_amt>
+    <policy_pay_amt>${policyPayAmt}</policy_pay_amt>
+    <voucher_no>${voucherNo}</voucher_no>
+    <user_ip>${userIp}</user_ip>
+    <bank_card_nm>${bankCardNm}</bank_card_nm>
+    <bank_card_no>${bankCardNo}</bank_card_no>
+    <cert_tp>${certTp}</cert_tp>
+    <cert_no>${certNo}</cert_no>
+    <bank_mobile>${bankMobile}</bank_mobile>
+    <cvn2>${cvn2}</cvn2>
+    <valid_dt>${validDt}</valid_dt>
+    <sign>${sign}</sign>
+</req>

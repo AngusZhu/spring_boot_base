@@ -16,7 +16,7 @@ public class ResponseResult implements Serializable {
 
     public final static String FUIOU_SUCESS="0000";
 
-    public final static String SUCESS="000000";
+    public final static String SUCCESS="0000";
 
     public final  static String PARA_MISS = "990100"; // 缺失参数
     public final  static String PARA_ERROR = "990101"; // 参数错误
@@ -49,6 +49,34 @@ public class ResponseResult implements Serializable {
     public final static String FIND_RULE_BY_RULEID_ERROR = "990309";//根据积分规则ID查询积分规则出错
 
     public final static String STRAT_RULE_ERROR = "990310";//启用积分规则失败
+    //支付异常相关
+    public static final String TA_NO_INVALID = "980001";//taNo 不存在/或者找不到
+
+    public static final String AMOUNT_INVALID = "980002" ;//支付额度或红包额度非法
+
+    public static final String BANKID_INVALID = "980003";//无法找到银行列表ID
+
+    public static final String CARD_HOLDER_INVALID = "980004" ; //持卡人姓名非法
+
+    public static final String CARD_HOLDER_CERT_TYPE_INVALID = "980005" ; //持卡人姓名非法
+
+    public static final String PRESAVE_MOBILE_INVALID = "980006" ; //预留手机号非法
+
+    public static final String CREDIT_CARD_PARAM_INVALID = "980007" ; //信用卡信息非法
+
+    public static final String TA_FINISHED ="980008" ; //已支付，请重复支付
+    public static final String OFFER_AMOUT_CHANGED = "980009" ; //红包变更
+    public static final String TOTAL_AMOUT_CHANGED = "980010"; //支付总金额变更
+    public static final String CARD_NO_CHANGED = "980011"; //卡号变更
+    public static final String PRESAVE_MOBILE_CHANGED = "980012"; //手机变更
+    public static final String CHECK_CODE_INVAILD = "980013" ; //验证码非法
+    public static final String QUICKPAY_SMS_FAILED =  "980014"; //短信发送失败
+    public static final String PAY_RECORD_LOST = "980015" ; //支付数据丢失
+    public static final String QUICKPAY_FAILED = "980016";  //快捷支付失败
+    public static final String PRODUCE_POLICY_FAILED = "980017"; //出单失败
+    public static final String PARSE_PRODUCE_XML_FAILED = "980018" ; //解析出单返回报文异常
+
+    public static final String NO_CARD_BIN_MATCH = "980101" ; //卡bin匹配不到数据
 
     private String returnCode;
     private String errorMsg;

@@ -2,10 +2,8 @@ package com.sinosafe.payment.config;
 
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.sinosafe.payment.filter.CorsFilter;
-import org.jasig.cas.client.authentication.AuthenticationFilter;
 import org.jasig.cas.client.util.AssertionThreadLocalFilter;
 import org.jasig.cas.client.util.HttpServletRequestWrapperFilter;
-import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -36,36 +34,36 @@ public class ApplicationFilterConfig {
         return mappingEncodingFilter;
     }
 
-    /**sso start filter***/
-    @Bean
-    public FilterRegistrationBean casFilter(){
-        Filter authFilter = new AuthenticationFilter();
-        FilterRegistrationBean mappingAuth = new FilterRegistrationBean(authFilter);
-        List<String> urlPatterns = new ArrayList<>();
-        urlPatterns.add("/web/*");
-        Map<String,String> initMap=new ConcurrentHashMap<>();
-        initMap.put("casServerLoginUrl",env.getProperty("sso.login.url"));
-        initMap.put("serverName",env.getProperty("front.web.url"));
-        mappingAuth.setInitParameters(initMap);
-        mappingAuth.setUrlPatterns(urlPatterns);
-        mappingAuth.setOrder(2);
-        return mappingAuth;
-    }
+//    /**sso start filter***/
+//    @Bean
+//    public FilterRegistrationBean casFilter(){
+//        Filter authFilter = new AuthenticationFilter();
+//        FilterRegistrationBean mappingAuth = new FilterRegistrationBean(authFilter);
+//        List<String> urlPatterns = new ArrayList<>();
+//        urlPatterns.add("/web/*");
+//        Map<String,String> initMap=new ConcurrentHashMap<>();
+//        initMap.put("casServerLoginUrl",env.getProperty("sso.login.url"));
+//        initMap.put("serverName",env.getProperty("front.web.url"));
+//        mappingAuth.setInitParameters(initMap);
+//        mappingAuth.setUrlPatterns(urlPatterns);
+//        mappingAuth.setOrder(2);
+//        return mappingAuth;
+//    }
 
-    @Bean
-    public FilterRegistrationBean validateFilter(){
-        Filter validateFilter = new Cas20ProxyReceivingTicketValidationFilter();
-        FilterRegistrationBean mappingValidate = new FilterRegistrationBean(validateFilter);
-        List<String> urlPatterns = new ArrayList<>();
-        urlPatterns.add("/web/*");
-        Map<String,String> initMap=new ConcurrentHashMap<>();
-        initMap.put("casServerUrlPrefix",env.getProperty("sso.login.url"));
-        initMap.put("serverName",env.getProperty("front.web.url"));
-        mappingValidate.setInitParameters(initMap);
-        mappingValidate.setUrlPatterns(urlPatterns);
-        mappingValidate.setOrder(3);
-        return mappingValidate;
-    }
+//    @Bean
+//    public FilterRegistrationBean validateFilter(){
+//        Filter validateFilter = new Cas20ProxyReceivingTicketValidationFilter();
+//        FilterRegistrationBean mappingValidate = new FilterRegistrationBean(validateFilter);
+//        List<String> urlPatterns = new ArrayList<>();
+//        urlPatterns.add("/web/*");
+//        Map<String,String> initMap=new ConcurrentHashMap<>();
+//        initMap.put("casServerUrlPrefix",env.getProperty("sso.login.url"));
+//        initMap.put("serverName",env.getProperty("front.web.url"));
+//        mappingValidate.setInitParameters(initMap);
+//        mappingValidate.setUrlPatterns(urlPatterns);
+//        mappingValidate.setOrder(3);
+//        return mappingValidate;
+//    }
 
     @Bean
     public FilterRegistrationBean wrapperFilter(){
